@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JNTUGV Previous Year Papers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .selector {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    select, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #paperLinks {
+      text-align: center;
+      margin-top: 20px;
+    }
+    a {
+      display: block;
+      margin: 5px 0;
+      color: #2980b9;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>JNTUGV Previous Year Papers</h1>
+  <div class="selector">
+    <select id="curriculum">
+      <option value="R20">R20</option>
+      <option value="R23">R23</option>
+    </select>
+    <select id="branch">
+      <option value="mechanical">Mechanical</option>
+      <option value="ece">ECE</option>
+    </select>
+    <select id="year">
+      <option value="2">2nd Year</option>
+      <option value="3">3rd Year</option>
+    </select>
+    <select id="semester">
+      <option value="1">1st Semester</option>
+      <option value="2">2nd Semester</option>
+    </select>
+    <button onclick="showPapers()">Show Papers</button>
+  </div>  <div id="paperLinks"></div>  <script>
+    const papers = {
+      R23: {
+        mechanical: {
+          2: {
+            1: ["Mechanics of Solids", "Thermodynamics", "Material Science and Metallurgy", "Transforms and Numerical Methods", "Universal Human Values"],
+            2: ["Complex Variables, Probability and Statistics", "Manufacturing Processes", "Fluid Mechanics and Hydraulic Machines", "Design of Machine Members"]
+          }
+        },
+        ece: {
+          2: {
+            1: ["Random Variables and Stochastic Processes", "Universal Human Values", "Signals and Systems", "Electronic Devices and Circuits", "Digital Circuit Design"],
+            2: ["Managerial Economics and Financial Analysis", "Linear Control Systems", "Electromagnetic Waves and Transmission Lines", "Analog Circuits Design", "Analog and Digital Communications"]
+          }
+        }
+      },
+      R20: {
+        mechanical: {
+          2: {
+            1: ["Vector Calculus, Transforms and PDE", "Mechanics of Solids", "Production Technology", "Thermodynamics", "Industrial Management", "Machine Drawing"],
+            2: ["Complex Variables and Statistical Methods", "Fluid Mechanics and Hydraulic Machines", "Kinematics of Machinery", "Thermal Engineering – I", "Metal Cutting and Machine Tools"]
+          },
+          3: {
+            1: ["Engineering Metrology", "Design of Machine Members – I", "Thermal Engineering – II", "Operations Research", "Unconventional Machining Processes"],
+            2: ["Heat Transfer", "Design of Machine Members – II", "Dynamics of Machinery", "Industrial Robotics", "Computer-Aided Manufacturing (CAM)"]
+          }
+        }
+      }
+    };
+
+    function showPapers() {
+      const curriculum = document.getElementById("curriculum").value;
+      const branch = document.getElementById("branch").value;
+      const year = document.getElementById("year").value;
+      const sem = document.getElementById("semester").value;
+      const subjectList = papers?.[curriculum]?.[branch]?.[year]?.[sem];
+
+      const container = document.getElementById("paperLinks");
+      container.innerHTML = "";
+
+      if (!subjectList) {
+        container.innerHTML = "<p>No data available yet. Please update later.</p>";
+        return;
+      }
+
+      subjectList.forEach(subject => {
+        const link = document.createElement("a");
+        const fileName = ${curriculum}_${branch}_${year}year_${sem}sem_${subject.replaceAll(/\s+/g, '_')}.pdf;
+        link.href = papers/${fileName};
+        link.download = fileName;
+        link.textContent = Download ${subject};
+        container.appendChild(link);
+      });
+    }
+  </script></body>
+</html>
